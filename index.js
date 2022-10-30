@@ -20,7 +20,14 @@ const connetDB = () => {
         throw err;
     });
 };
-
+app.get('/',function(req,res){
+ 
+    res.send(`
+        <div style="display:flex; flex-direction:column;  align-items:center; height:100vh; width:100%;" >
+            <h1> This API is made by Anıl Parlak for <em>Youtube Clone</em> </h1>
+        </div>
+    `)
+  });
 app.use(cookieParser());
 app.use(express.json());
 app.use("/api/auth",authRoutes);
