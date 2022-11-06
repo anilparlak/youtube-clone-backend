@@ -27,7 +27,7 @@ export const signin = async (req,res,next) => {
         if(!isCorrectPassword){
             return next(createError(400,"Password is not correct!"));
         }
-        const token = jwt.sign({id:user._id},process.env.SECRET_KEY);
+        const token = jwt.sign({id:user._id},"parlak");
         const {password,...others} = user._doc;
         res.cookie("acces_token",token,{
             httpOnly:true
@@ -41,7 +41,7 @@ export const googleAuthentication = async (req,res,next) => {
     try {
         const user = await User.findOne({email:req.body.email});
         if(user){
-            const token = jwt.sign({id:user._id},process.env.SECRET_KEY);
+            const token = jwt.sign({id:user._id},"parlak");
             res.cookie("acces_token",token,{
                 httpOnly:true
             }).status(200).json(user._doc);
@@ -51,7 +51,7 @@ export const googleAuthentication = async (req,res,next) => {
                 fromGoogle:true
             })
             const savedUser = await newUser.save();
-            const token = jwt.sign({id:savedUser._id},process.env.SECRET_KEY);
+            const token = jwt.sign({id:savedUser._id},"parlak");
             res.cookie("acces_token",token,{
                 httpOnly:true
             }).status(200).json(savedUser._doc);

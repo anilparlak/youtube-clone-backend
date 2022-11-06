@@ -11,25 +11,36 @@ import cors from "cors"
 const app = express();
 app.use(cors());
 dotenv.config();
-
-const connetDB = () => {
-  mongoose
-    .connect(process.env.MONGO_URL)
-    .then(() => console.log("Connection to DB is successfully"))
-    .catch((err) => {
-        throw err;
-    });
-};
-app.get('/',function(req,res){
- 
-    res.send(`
-        <div style="display:flex; flex-direction:column;  align-items:center; height:100vh; width:100%;" >
-            <h1> This API is made by Anıl Parlak for <em>Youtube Clone</em> </h1>
-        </div>
-    `)
-  });
 app.use(cookieParser());
 app.use(express.json());
+const connetDB = () => {
+    //   mongoose
+    //     .connect(process.env.MONGO_URL, {
+    //       useNewUrlParser: true,
+    //       useUnifiedTopology: true,
+    //     })
+    //     .then(() => console.log("Connection to DB is successfully"))
+    //     .catch((err) => {
+    //       throw err;
+    //     });
+    mongoose.connect(
+      "mongodb+srv://anparlak:mongo.anparlak@cluster0.nqy82.mongodb.net/youtube-clone?retryWrites=true&w=majority",
+      {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+      },
+      (err) => {
+        if (!err) {
+          console.log("Successfully Established Connection with MongoDB");
+        } else {
+          console.log(
+            "Failed to Establish Connection with MongoDB with Error: " + err
+          );
+        }
+      }
+    );
+  };
+
 app.use("/api/auth",authRoutes);
 app.use("/api/users",userRoutes);
 app.use("/api/videos",videoRoutes);
@@ -45,7 +56,7 @@ app.use((err,req,res,next) => {
     })
 })
 
-app.listen(process.env.PORT || 5050, () => {
+app.listen(process.env.PORT || 5000, () => {
     connetDB();
     console.log("Server is running!")
 });
