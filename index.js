@@ -24,7 +24,7 @@ const connetDB = () => {
     //       throw err;
     //     });
     mongoose.connect(
-      "mongodb+srv://anparlak:mongo.anparlak@cluster0.nqy82.mongodb.net/youtube-clone?retryWrites=true&w=majority",
+      process.env.MONGO_URL,
       {
         useNewUrlParser: true,
         useUnifiedTopology: true,
