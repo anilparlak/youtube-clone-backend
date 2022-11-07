@@ -11,7 +11,7 @@ import cors from "cors"
 const app = express();
 app.use(cors());
 dotenv.config();
-app.use(cookieParser());
+// app.use(cookieParser());
 app.use(express.json());
 const connetDB = () => {
     //   mongoose
@@ -56,7 +56,7 @@ app.use((err,req,res,next) => {
     })
 })
 
-app.listen(process.env.PORT || 5000, () => {
+app.listen(process.env.PORT || 5050, () => {
     connetDB();
     console.log("Server is running!")
 });

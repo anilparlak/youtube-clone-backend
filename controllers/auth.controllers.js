@@ -29,9 +29,7 @@ export const signin = async (req,res,next) => {
         }
         const token = jwt.sign({id:user._id},process.env.SECRET_KEY);
         const {password,...others} = user._doc;
-        res.cookie("acces_token",token,{
-            httpOnly:true
-        }).status(200).json(others);
+        res.status(200).json({...others, token});
     }catch(err){
         next(err);
     }
@@ -52,9 +50,7 @@ export const googleAuthentication = async (req,res,next) => {
             })
             const savedUser = await newUser.save();
             const token = jwt.sign({id:savedUser._id},process.env.SECRET_KEY);
-            res.cookie("acces_token",token,{
-                httpOnly:true
-            }).status(200).json(savedUser._doc);
+            res.status(200).json({...others, token});
         }
     } catch (error) {
         console.log("error => ",error)
