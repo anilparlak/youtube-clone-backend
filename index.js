@@ -5,24 +5,15 @@ import userRoutes from "./routes/user.routes.js";
 import videoRoutes from "./routes/video.routes.js";
 import commentRoutes from "./routes/comment.routes.js";
 import authRoutes from "./routes/auth.routes.js";
-import cookieParser from "cookie-parser";
 import cors from "cors"
 
 const app = express();
 app.use(cors());
 dotenv.config();
-// app.use(cookieParser());
+
 app.use(express.json());
 const connetDB = () => {
-    //   mongoose
-    //     .connect(process.env.MONGO_URL, {
-    //       useNewUrlParser: true,
-    //       useUnifiedTopology: true,
-    //     })
-    //     .then(() => console.log("Connection to DB is successfully"))
-    //     .catch((err) => {
-    //       throw err;
-    //     });
+ 
     mongoose.connect(
       process.env.MONGO_URL,
       {

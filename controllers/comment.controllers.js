@@ -1,6 +1,4 @@
 import Comment from "../models/Comment.schema.js";
-import Video from "../models/Video.schema.js";
-import { createError } from "../error.js"
 
 export const addComment = async (req,res,next) => {
     const newComment = new Comment({...req.body,userId:req.user.id})
